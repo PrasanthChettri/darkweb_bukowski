@@ -1,0 +1,97 @@
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+a.button1 {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #FFFFFF;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+body {
+    color: black;
+}
+
+h1{
+    line-height: 100px ;
+}
+a.button1:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+}
+
+@media all and (max-width:30em) {
+    a.button1 {
+        display: block;
+        margin: 0.4em auto;
+    }
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 33.33%;
+    padding: 5px;
+}
+
+
+/* Clear floats after image containers */
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+body {
+    height: calc(100vh - 8em);
+    padding: 4em;
+    color: rgba(255, 255, 255, .50);
+    font-family: 'Anonymous Pro', monospace;
+    background-color: rgb(25, 25, 25);
+}
+
+#title {
+    top: 0%;
+    left: 30%;
+    width: 40%;
+    height: 14%;
+    background: linear-gradient(0deg, rgba(255, 0, 0, 0.2) 20%, rgba(255, 0, 0, 0.4) 40%, rgba(255, 0, 0, 0.6) 60%, rgba(255, 0, 0, 0.8) 80%), linear-gradient(-90deg, rgba(0, 0, 255, 0) 0%, rgba(0, 0, 255, 0.2) 20%, rgba(0, 0, 255, 0.4) 40%, rgba(0, 0, 255, 0.6) 60%, rgba(0, 0, 255, 0.8) 80%, rgba(0, 0, 255, 1) 100%), rgb(0, 255, 0);
+    background-size: 300% 300%;
+    background-position: 0% 0%;
+    position: fixed;
+    display: block;
+    animation: gradient 10s infinite linear;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    25% {
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
