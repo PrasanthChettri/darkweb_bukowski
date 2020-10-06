@@ -4,8 +4,8 @@ from django.http import HttpResponse
 def frontpage(request):
 	return render(request ,"home.html")
 
-def getpopular(request):
-	return HttpResponse('popular', )
-
-def getnew(request):
-	return HttpResponse('popular')
+def getNew(request):
+	return render(request , 'new.html')
+	
+def getStarred(request):
+	return render(request ,'starred.html')

@@ -2,20 +2,20 @@
 <html>
     <head>
         <title>THISWEB</title>
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     </head>
     <body>
     <center>
 	    <div id = "title">
-	        <h1>DaRk WeB Bukowski</h1>
+	        <h1>DaRk_weB Bukowski</h1>
 	    </div>
-        <p>
-        </p>
        <h2 class="mt-5">WEBSITE FOR YOUR CREATIVE VOMIT</h2>
-       <center>
-        <a href = "{% url 'home:feed' %}"> new </a>|
-        <a href = "{% url 'home:popular' %}"> Popular Bukowskis </a>|
-        <a href = "{% url 'home:new' %}"> write </a><br>
+       <div class = "menu">
+            <a href = "{% url 'home:feed' %}"> Feed</a> |
+            <a href = "{% url 'home:new' %}">New</a> |
+            <a href = "{% url 'home:starred' %}"> Starred</a>
+        </div>
     </body>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </html>

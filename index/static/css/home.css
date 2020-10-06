@@ -1,68 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
-a.button1 {
-    display: inline-block;
-    padding: 0.35em 1.2em;
-    border: 0.1em solid #FFFFFF;
-    margin: 0 0.3em 0.3em 0;
-    border-radius: 0.12em;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    color: #FFFFFF;
-    text-align: center;
-    transition: all 0.2s;
-}
-
-body {
-    color: black;
-}
-
 h1{
     line-height: 100px ;
-}
-a.button1:hover {
-    color: #000000;
-    background-color: #FFFFFF;
-}
-
-@media all and (max-width:30em) {
-    a.button1 {
-        display: block;
-        margin: 0.4em auto;
-    }
-}
-
-.column {
-    float: left;
-    width: 33.33%;
-    padding: 5px;
-}
-
-.row {
-    display: flex;
-}
-
-.column {
-    flex: 33.33%;
-    padding: 5px;
-}
-
-
-/* Clear floats after image containers */
-
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-body {
-    height: calc(100vh - 8em);
-    padding: 4em;
-    color: rgba(255, 255, 255, .50);
-    font-family: 'Anonymous Pro', monospace;
-    background-color: rgb(25, 25, 25);
 }
 
 #title {
@@ -94,4 +32,8 @@ body {
     100% {
         background-position: 0% 0%;
     }
+}
+
+.menu{
+    align-content: center ;
 }

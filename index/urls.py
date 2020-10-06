@@ -5,6 +5,6 @@ from . import views
 app_name = "home" 
 urlpatterns = [
     path('', views.frontpage , name = 'feed'),
-    path('popular', views.getpopular , name = 'popular'),
-    path('new', views.getnew , name = 'new'),
+    path('popular', views.getNew , name = 'new'),
+    path('new', views.getStarred , name = 'starred'),
 ]
