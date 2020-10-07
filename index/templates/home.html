@@ -5,14 +5,29 @@
     </head>
     <body>
     <center>
-	    <div id = "title">
-	        <h1>DaRk_weB Bukowski</h1>
-	    </div>
+        <div id = "title">
+            <h1>DaRk_weB Bukowski</h1>
+        </div>
        <h2 class="mt-5">WEBSITE FOR YOUR CREATIVE VOMIT</h2>
        <div class = "menu">
             <a href = "{% url 'home:feed' %}"> Feed</a> |
             <a href = "{% url 'home:new' %}">New</a> |
             <a href = "{% url 'home:starred' %}"> Starred</a>
+        </div>
+        <div class = "container">
+            {% for post in posts %}
+                <div class = "posts">
+                    <div class = "post_title">
+                        {{ post.title }} 
+                    </div>
+                    <div class = "post_text">
+                            {{ post }}
+                    </div>
+                    <div clas = "post_autho">
+                        Author : {{ post.User }}
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </body>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
