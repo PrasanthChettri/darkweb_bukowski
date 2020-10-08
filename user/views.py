@@ -4,7 +4,7 @@ from django.urls import reverse
 
 # Create your views here.
 def signin(request):
-	return hp("yo:")
+	return render(request , 'signin.html')
 
 def login(request):
 	return hp("YO")
