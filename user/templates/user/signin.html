@@ -1,0 +1,14 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class = "container">
+		{% csrf_token %} 
+		<form action = "{% url 'user:signauth' %}">
+			  <label for="alias">Alias :</label><br>
+			  <input type="text" id="alias" name="alias"><br>
+			  <label for="bio">Bio : </label><br>
+			  <input type="text" id="bio" name="bio">
+			  <label for="bio">Bio : </label><br>
+              <input type="text" name="password">
+		</form>
+</div>
