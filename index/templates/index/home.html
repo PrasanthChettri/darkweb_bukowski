@@ -1,44 +1,19 @@
+{% extends 'base.html' %}
 {% load static %}
-<html>
-    <head>
-        <title>THISWEB</title>
-    </head>
-    <body>
-    <center>
-        <link rel="stylesheet" type="text/css" href="{% static 'common-css/style.css' %}">
-        <div class = "header">
-            <div id = "title">
-                <h1>DaRk_weB Bukowski</h1>
+{% block content %}
+<div class = "container">
+    {% for post in posts %}
+        <div class = "posts">
+            <div class = "post_title h3">
+                {{ post.title }} 
             </div>
-            <div class = "float-right">
-                <a href = "{% url 'user:account' %}">
-                    <img src = "{% static 'img/user.png' %}" >
-                </a>
+            <div class = "post_text">
+                    {{ post }}
             </div>
-           <h2 class="mt-5">WEBSITE FOR YOUR CREATIVE VOMIT</h2>
-           <div class = "menu">
-                <a href = "{% url 'home:feed' %}"> Feed</a> |
-                <a href = "{% url 'home:new' %}">New</a> |
-                <a href = "{% url 'home:starred' %}"> Starred</a>
+            <div clas = "post_autho">
+                Author : {{ post.User }}
             </div>
         </div>
-        <div class = "container">
-            {% for post in posts %}
-                <div class = "posts">
-                    <div class = "post_title h3">
-                        {{ post.title }} 
-                    </div>
-                    <div class = "post_text">
-                            {{ post }}
-                    </div>
-                    <div clas = "post_autho">
-                        Author : {{ post.User }}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </body>
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'index/css/home.css' %}">
-    
-</html>
+    {% endfor %}
+</div>
+{% endblock %}
