@@ -4,7 +4,7 @@ from django.urls import reverse
 from .forms import UserForm
 from .models import Profile
 from django.contrib import messages
-
+from django.contrib.auth import logout, login, authenticate
 
 # Create your views here.
 def signin(request):
@@ -17,9 +17,10 @@ def signin(request):
 			user.save()
 			profile = Profile(user = user)
 			profile.save()
-			user = authenticate(username=request.POST['username'],
-	                                password=request.POST['password'])
-			login(request ,user) 
+			user = authenticate(username=request.POST.get('username'),
+                                password=request.POST.get('password')
+                                )
+			login(user) 
 			return HttpResponseRedirect(reverse('home:feed'))
 	form = UserForm()
 	return render(request , 'user/signin.html' , {'form' : form})
