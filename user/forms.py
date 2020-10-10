@@ -1,11 +1,11 @@
-from .models import UserModel
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
-class UserForm(forms.Form):
-    alias = forms.CharField()
-    bio = forms.CharField()
-    password = forms.CharField(max_length=32, widget=forms.PasswordInput)
-    password2 = forms.CharField(max_length=32, widget=forms.PasswordInput)
-    class Meta:
-        model = UserModel
-        fields = '__all__'
+class UserForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = 'alias'
+        for fieldname in ['username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
+
