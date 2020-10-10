@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth import logout, login, authenticate
 
 class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -9,3 +10,10 @@ class UserForm(UserCreationForm):
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
 
+class UserLoginForm(forms.Form):
+	user = forms.CharField()
+	password = forms.CharField(widget = forms.PasswordInput)
+	def is_valid(self , to_validate):
+		username = to_validate.get('username')
+		password = to_validate.get('password')
+		return super().is_valid() and authenticate(username= username , password = password)

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
+<div class = "container">
+	{{ profile.username }}
+</div>
+{% endblock %}

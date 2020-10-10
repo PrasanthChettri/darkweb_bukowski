@@ -6,14 +6,15 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
 <div class = "container">
-    <form action = "{% url 'user:signin' %}" method = "POST">
+    <form action = "{% url 'user:login' %}" method = "POST">
     	<div class="form">
             {% csrf_token %}
             {{ form.as_p }}
         </div>
     <input type="submit" value="Submit">
-    <div class = "login_prompt">
-		<a href = "{% url 'user:login' %}"> Login</a>
+    {{ error }}
+    <div class = "signin_prompt">
+		<a href = "{% url 'user:signin' %}"> Sign Up</a>
 	</div>
 </div>
 
