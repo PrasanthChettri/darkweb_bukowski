@@ -2,35 +2,12 @@ h1{
     line-height: 100px ;
 }
 
-#title {
-    top: 0%;
-    left: 30%;
-    width: 40%;
-    height: 14%;
-    background: linear-gradient(0deg, rgba(255, 0, 0, 0.2) 20%, rgba(255, 0, 0, 0.4) 40%, rgba(255, 0, 0, 0.6) 60%, rgba(255, 0, 0, 0.8) 80%), linear-gradient(-90deg, rgba(0, 0, 255, 0) 0%, rgba(0, 0, 255, 0.2) 20%, rgba(0, 0, 255, 0.4) 40%, rgba(0, 0, 255, 0.6) 60%, rgba(0, 0, 255, 0.8) 80%, rgba(0, 0, 255, 1) 100%), rgb(0, 255, 0);
-    background-size: 300% 300%;
-    background-position: 0% 0%;
-    position: fixed;
-    display: block;
-    animation: gradient 10s infinite linear;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 0%;
-    }
-    25% {
-        background-position: 0% 100%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    75% {
-        background-position: 100% 0%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
+.btn {
+  height: 25px;
+  width: 25px;
+  background-color: #6600cc;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .menu{

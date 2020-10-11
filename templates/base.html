@@ -5,7 +5,8 @@
 	<title></title>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
+    {% block imports %}
+    {% endblock %}
 </head>
 <body>
 	<header>
@@ -20,13 +21,16 @@
        <h2 class="mt-5">WEBSITE FOR YOUR CREATIVE VOMIT</h2>
        <div class = "menu">
             <a href = "{% url 'home:feed' %}"> Feed</a> |
-            <a href = "{% url 'home:new' %}">New</a> |
+            <a href = "{% url 'home:topliterature' %}">Top Literature</a> |
             <a href = "{% url 'home:starred' %}"> Starred</a>
         </div>
         {% block content %}
         {% endblock %}
-        {% block form %}
-        {% endblock %}
     </header>
 </body>
+<!-- javascript for all the funstuff -->
+{% block javascript %}
+
+{% endblock %}
+
 </html>

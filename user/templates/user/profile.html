@@ -19,6 +19,7 @@
 		{% endfor %}
 	</div>
 </div>
+{% block javascript %}
 <script>
 function update(){
 	 document.getElementById("bio").innerHTML =  `
@@ -33,4 +34,5 @@ function update(){
 		` ;
 }
 </script>
+{% endblock %}
 {% endblock %}

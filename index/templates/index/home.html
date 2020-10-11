@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block imports %}
+<link rel="stylesheet" type="text/css" href="{% static 'index/css/home.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class = "container">
     {% for post in posts %}
@@ -10,10 +15,31 @@
             <div class = "post_text">
                     {{ post }}
             </div>
-            <div clas = "post_autho">
+            <div class = "post_autho">
                 Author : {{ post.User }}
             </div>
+        <button id = 'validate' class = "btn" href="#"></button>
         </div>
     {% endfor %}
 </div>
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+$('#validate').click(function(){
+  $.ajax({
+           type: "POST",
+           url: "{% url 'home:updatevalidate' %}",
+           dataType: "json",
+           success: function(response) {
+                  alert(response.message);
+                  alert('Company likes count is now ' + response.likes_count);
+            },
+            error: function(rs, e) {
+                   alert(rs.responseText);
+            }
+      }); 
+})
+</script>
 {% endblock %}
