@@ -10,9 +10,27 @@
 
 	<div id = "bio">
 		{{ profile.bio }}
-		<button class="btn btn-outline-light" onclick="update(`{{ profile.username }}`, `{% url 'user:profile' %}`)">
-		Update</button>
+		<button class="btn btn-outline-light" onclick="update()">Update</button>
+	</div>
+	<div class = "posts">
+		<a class="btn btn-outline-light" href ="{% url 'user:new_post' %}">Add new work</a>
+		{% for post in posts %}
+			{{ post.writeup }}
+		{% endfor %}
 	</div>
 </div>
-<script type="text/javascript" src ="{% static 'user/js/bio_update.js' %}"></script>
+<script>
+function update(){
+	 document.getElementById("bio").innerHTML =  `
+	 	<form action = {% url 'user:profile' %} method = 'POST'>
+ 			{% csrf_token %}
+            <label for="new_bio">Write : </label><br>
+			<textarea id="new_bio" name="new_bio" rows="4" cols="50">
+			{{ profile.bio }}
+			</textarea>
+			    <button class="btn btn-outline-light" type="submit" value="Submit">Submit</button>
+		</form>
+		` ;
+}
+</script>
 {% endblock %}

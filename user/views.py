@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.contrib.auth import logout, login as authlogin, authenticate
 from .forms import UserLoginForm 
 from django.contrib.auth.models import User
-
+from index.models import PostModel
+import datetime
 
 # Create your views here.
 def signin(request):
@@ -44,18 +45,27 @@ def logoutview(request):
 	logout(request)
 	return HttpResponseRedirect(reverse('home:feed'))
 
-def signauth(request):
-    return hp("YO")
-
 def profile(request):
 	user_profile = request.user.profile
-	if request.method == 'GET':
-		user_profile.bio = request.GET.get('new_bio')
+	posts  = PostModel.objects.filter(User = request.user)
+	if request.method == 'POST':
+		user_profile.bio = request.POST.get('new_bio')
 		user_profile.save()
-	return render(request , 'user/profile.html' , {'profile' : user_profile} )
+	return render(request , 'user/profile.html' , {'profile' : user_profile , 'posts' : posts})
 
 def account(request):
     if request.user.is_authenticated :
         return HttpResponseRedirect(reverse('user:profile'))
     else:
         return HttpResponseRedirect(reverse('user:signin'))
+
+def NewPostView(request):
+	if request.method == 'POST':
+		post = PostModel()
+		post.tile = request.POST.get('post_title')
+		post.writeup = request.POST.get('post_content')
+		post.date_c = datetime.datetime.now()
+		post.User = request.user
+		post.save()
+		return HttpResponseRedirect(reverse('user:profile'))
+	return render(request , 'user/new_post.html')

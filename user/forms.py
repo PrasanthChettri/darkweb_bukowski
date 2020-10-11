@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth import logout, login, authenticate
+from index.models import PostModel
 
 class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -17,3 +18,8 @@ class UserLoginForm(forms.Form):
 		username = to_validate.get('username')
 		password = to_validate.get('password')
 		return super().is_valid() and authenticate(username= username , password = password)
+
+class PostCreationForm(forms.Form):
+	class Meta():
+		model = PostModel
+		fields = '__all__'
