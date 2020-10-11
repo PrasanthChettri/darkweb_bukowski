@@ -4,6 +4,15 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
 <div class = "container">
+	<div class = "profile_name">
 	{{ profile.username }}
+	</div>
+
+	<div id = "bio">
+		{{ profile.bio }}
+		<button class="btn btn-outline-light" onclick="update(`{{ profile.username }}`, `{% url 'user:profile' %}`)">
+		Update</button>
+	</div>
 </div>
+<script type="text/javascript" src ="{% static 'user/js/bio_update.js' %}"></script>
 {% endblock %}

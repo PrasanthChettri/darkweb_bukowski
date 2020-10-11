@@ -11,8 +11,9 @@
             {% csrf_token %}
             {{ form.as_p }}
         </div>
-    <input type="submit" value="Submit">
-    {{ error }}
+        <input type="submit" value="Submit">
+        {{ error }}
+    </form>
     <div class = "signin_prompt">
 		<a href = "{% url 'user:signin' %}"> Sign Up</a>
 	</div>

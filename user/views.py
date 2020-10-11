@@ -21,9 +21,6 @@ def signin(request):
 			user.save()
 			profile = ProfileModel(user = user)
 			profile.save()
-			user = authenticate(username=username,
-                                password= password
-					            )
 			authlogin(request , user) 
 			return HttpResponseRedirect(reverse('home:feed'))
 	form = UserForm()
@@ -43,14 +40,19 @@ def login(request):
 				{'form' : UserLoginForm() ,
 				 'error' : error })
 
-def logout(request):
-    return hp("YO")
+def logoutview(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('home:feed'))
 
 def signauth(request):
     return hp("YO")
 
 def profile(request):
-	return render(request , 'user/profile' , {'profile' : request.user.get_profile()} )
+	user_profile = request.user.profile
+	if request.method == 'GET':
+		user_profile.bio = request.GET.get('new_bio')
+		user_profile.save()
+	return render(request , 'user/profile.html' , {'profile' : user_profile} )
 
 def account(request):
     if request.user.is_authenticated :
