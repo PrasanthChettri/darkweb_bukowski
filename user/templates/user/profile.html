@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block imports %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
 <div class = "container">
 	<div class = "profile_name">
 	{{ profile.username }}
@@ -19,6 +23,8 @@
 		{% endfor %}
 	</div>
 </div>
+{% endblock %}
+
 {% block javascript %}
 <script>
 function update(){
@@ -34,5 +40,4 @@ function update(){
 		` ;
 }
 </script>
-{% endblock %}
 {% endblock %}

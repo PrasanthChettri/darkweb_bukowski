@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block imports %}
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
+{% endblock %}
+
 {% block content %}
 
 
 
-<link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
 <div class = "container">
 	<form method = "POST" action="{% url 'user:new_post' %}">
         {% csrf_token %}

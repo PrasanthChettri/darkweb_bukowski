@@ -3,6 +3,7 @@
 
 {% block imports %}
 <link rel="stylesheet" type="text/css" href="{% static 'index/css/home.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -18,7 +19,10 @@
             <div class = "post_autho">
                 Author : {{ post.User }}
             </div>
-        <button id = 'validate' class = "btn" href="#"></button>
+        <button id = 'validate' post_id = "{{ post.id }}" class = "btn" ></button>
+        <div id = 'validate_counter' post_id = "{{ post.id }}">
+            number of validations : 
+        </div>
         </div>
     {% endfor %}
 </div>
@@ -26,18 +30,23 @@
 
 
 {% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 $('#validate').click(function(){
   $.ajax({
            type: "POST",
            url: "{% url 'home:updatevalidate' %}",
+           data : {'post_id' : $(this).attr('post_id') ,  } ,
            dataType: "json",
            success: function(response) {
-                  alert(response.message);
-                  alert('Company likes count is now ' + response.likes_count);
+                let color = 'white' ;
+                $(this).css('' , color ) ;
+                if(response.liked){
+                    color = 'white' ;
+                }
             },
             error: function(rs, e) {
-                   alert(rs.responseText);
+               alert("bruv");
             }
       }); 
 })
