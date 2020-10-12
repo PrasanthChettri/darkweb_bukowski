@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
+
 #TODO : make database more robust and scalable
 class PostModel(models.Model):
     User = models.ForeignKey(to = User ,on_delete = models.CASCADE , default = 1 , related_name = "PostModel")

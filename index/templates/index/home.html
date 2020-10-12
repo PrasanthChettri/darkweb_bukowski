@@ -20,10 +20,10 @@
                 Author : {{ post.User }}
             </div>
         <button id = 'validate' post_id = "{{ post.id }}" class = "btn" ></button>
-        <div id = 'validate_counter' post_id = "{{ post.id }}">
-            number of validations :
-             <div id = "v_count"> {{ validations.total_no }} </div>
-        </div>
+            <div id = 'validate_counter' post_id = "{{ post.id }}">
+                 number of validations :
+                 <div id = "v_count{{ post.id }}" > {{ validations.total_no }} </div>
+            </div>
         </div>
     {% endfor %}
 </div>
@@ -33,7 +33,6 @@
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    //probably not the best way of doing this
     $("button[id='validate']").click(function(){
       $.ajax({
                type: "POST",
@@ -41,20 +40,17 @@
                data : {'post_id' : $(this).attr('post_id') ,  } ,
                dataType: "json",
                success: function(response) {
-                    let color = 'white' ;
-                    $(this).css('background-color' , color ) ;
-                    if(response.liked){
-                        color = 'white' ;
-                    }
-                    let current =Number($('#v_count').html()) ;
+                    //probably not the best way of doing this
+                    let selector = "#v_count" +  response.post_id ;
+                    let current = Number($(selector).html()) ;
                     if(response.liked)
                         current ++ ;
                     else 
                         current -- ;
-                    $('#v_count').html(current) ;
+                    $(selector).html(current) ;
                 },
                 error: function(rs, e) {
-                    console.log(re.e)
+                    console.log(rs ,e) ;
                 }
           }); 
     })
