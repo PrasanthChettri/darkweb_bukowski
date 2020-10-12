@@ -21,16 +21,6 @@ class CommentModel(models.Model):
 
 class validations(models.Model):
 	#user that Validated
-    user = models.ForeignKey(to = User,  on_delete = models.CASCADE , related_name = "User")
+	user = models.ForeignKey(to = User,  on_delete = models.CASCADE , related_name = "User")
 	#submissions that were validated
-    submission = models.ForeignKey(to = PostModel,  on_delete = models.CASCADE , related_name = "submission")
-
-    @staticmethod
-    def validate(submission : PostModel ,  user : User):
-    	is_validated = validations.objects.filter(user = user , submission = submission)
-    	#if zero object not there so make else object there so delete
-    	if is_validated.exists() : 
-    		is_validated[0].delete()
-    	else :
-    		new_validate = validate(user = user , submission = submission)
-    		new_validate.save()
+	submission = models.ForeignKey(to = PostModel,  on_delete = models.CASCADE , related_name = "submission")

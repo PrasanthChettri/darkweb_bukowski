@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class = "container">
-    {% for post in posts %}
+    {% for post , validations in post_validations.items %}
         <div class = "posts">
             <div class = "post_title h3">
                 {{ post.title }} 
@@ -21,7 +21,8 @@
             </div>
         <button id = 'validate' post_id = "{{ post.id }}" class = "btn" ></button>
         <div id = 'validate_counter' post_id = "{{ post.id }}">
-            number of validations : 
+            number of validations :
+             <div id = "v_count"> {{ validations.total_no }} </div>
         </div>
         </div>
     {% endfor %}
@@ -32,23 +33,30 @@
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-$('#validate').click(function(){
-  $.ajax({
-           type: "POST",
-           url: "{% url 'home:updatevalidate' %}",
-           data : {'post_id' : $(this).attr('post_id') ,  } ,
-           dataType: "json",
-           success: function(response) {
-                let color = 'white' ;
-                $(this).css('' , color ) ;
-                if(response.liked){
-                    color = 'white' ;
+    //probably not the best way of doing this
+    $("button[id='validate']").click(function(){
+      $.ajax({
+               type: "POST",
+               url: "{% url 'home:updatevalidate' %}",
+               data : {'post_id' : $(this).attr('post_id') ,  } ,
+               dataType: "json",
+               success: function(response) {
+                    let color = 'white' ;
+                    $(this).css('background-color' , color ) ;
+                    if(response.liked){
+                        color = 'white' ;
+                    }
+                    let current =Number($('#v_count').html()) ;
+                    if(response.liked)
+                        current ++ ;
+                    else 
+                        current -- ;
+                    $('#v_count').html(current) ;
+                },
+                error: function(rs, e) {
+                    console.log(re.e)
                 }
-            },
-            error: function(rs, e) {
-               alert("bruv");
-            }
-      }); 
-})
+          }); 
+    })
 </script>
 {% endblock %}
