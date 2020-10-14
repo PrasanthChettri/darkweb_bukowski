@@ -22,8 +22,7 @@
        <h2 class="mt-5">WEBSITE FOR YOUR CREATIVE VOMIT</h2>
        <div class = "menu">
             <a href = "{% url 'home:feed' %}"> Feed</a> |
-            <a href = "{% url 'home:topliterature' %}">Top Literature</a> |
-            <a href = "{% url 'home:starred' %}"> Starred</a>
+            <a href = "{% url 'home:get_new' %}"> New </a>
         </div>
         {% block content %}
         {% endblock %}
@@ -33,5 +32,5 @@
 {% block javascript %}
 
 {% endblock %}
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>

@@ -5,8 +5,8 @@ from . import views
 app_name = "home" 
 urlpatterns = [
     path('', views.frontpage , name = 'feed'),
-    path('<int:pk>', views.frontpage , name = 'feed'),
+    path('<int:page>/<str:direction>', views.frontpage , name = 'feed'),
     path('topliterature', views.TopLiteratureView , name = 'topliterature'),
-    path('new', views.getStarred , name = 'starred'),
+    path('new', views.getnew , name = 'get_new'),
     path('updatelike' , views.updatevalidate , name = "updatevalidate")
 ]

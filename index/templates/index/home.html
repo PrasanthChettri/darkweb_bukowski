@@ -3,13 +3,13 @@
 
 {% block imports %}
 <link rel="stylesheet" type="text/css" href="{% static 'index/css/home.css' %}">
-
 {% endblock %}
 
 {% block content %}
 <div class = "container">
     {% for post , validations in post_validations.items %}
-        <div class = "posts">
+    <div class = "m-5">
+        <div class="border border-white p-5">
             <div class = "post_title h3">
                 {{ post.title }} 
             </div>
@@ -25,7 +25,16 @@
                  <div id = "v_count{{ post.id }}" > {{ validations.total_no }} </div>
             </div>
         </div>
+    </div>
     {% endfor %}
+
+    {% if page_no != 0 %}
+        <a href="{% url 'home:feed' page_no '<-' %}"><-</a>
+    {% endif %}
+
+    {% if is_end %}
+        <a href="{% url 'home:feed' page_no '->' %}">-></a>
+    {% endif %}
 </div>
 {% endblock %}
 

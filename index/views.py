@@ -8,24 +8,18 @@ from collections import defaultdict
 from django.db.models import Count
 
 
-def frontpage(request):
+def frontpage(request , page = 0, direction = "-" ):
 	#posts in a page 
 	post_count = 10
-
-	if 'page' in request.GET : 
-		page_number = request.GET.get('page') - 1 
-	else : 
-		page_number = 0 
-
-	posts = PostModel.objects.order_by('-date_c').all()[page_number*post_count:(page_number + 1)*post_count]
-
+	page += {'-' : 0 , '->' : 1 , '<-' : -1}[direction]
+	posts = PostModel.objects.order_by('-date_c').all()[page*post_count:(page + 1)*post_count]
 	post_validations = defaultdict(lambda : {'objects' : None, 'total_no' : 0})
 	for post in posts:
 		all_valid = validations.objects.filter(submission = post)
 		post_validations[post]['objects'] = all_valid
 		post_validations[post]['total_no'] = len(all_valid) 
-
-	return render(request , "index/home.html" , context = {'post_validations' : dict(post_validations)})
+		context = {'post_validations' : dict(post_validations) , 'page_no' : page , 'is_end' : len(posts) == post_count }
+	return render(request , "index/home.html" , context = context) 
 
 def TopLiteratureView(request):
 	annotated = validations.objects.annotate(Count('submission'))
@@ -47,5 +41,11 @@ def updatevalidate(request):
 	return HttpResponse("Be Tolstoy not Snowden")
 
 
-def getStarred(request):
-	return render(request ,'index/starred.html')
+def getnew(request):
+	return HttpResponseRedirect(reverse("user:new_post"))
+
+'''
+IF THIS SHIT TAKES OFF : get_starred = get_favourate literature
+						most_validations = literature hall of fame
+						strongly linked models =  Can see who commented and their profiles and everything
+'''

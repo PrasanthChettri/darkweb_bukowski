@@ -62,7 +62,7 @@ def account(request):
 def NewPostView(request):
 	if request.method == 'POST':
 		post = PostModel()
-		post.tile = request.POST.get('post_title')
+		post.title = request.POST.get('post_title')
 		post.writeup = request.POST.get('post_content')
 		post.date_c = datetime.datetime.now()
 		post.User = request.user
