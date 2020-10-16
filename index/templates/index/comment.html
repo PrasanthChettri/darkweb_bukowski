@@ -2,5 +2,9 @@
 {% load static %}
 <div class = "container">
 	{% block content %}
+	{% for comment in comments %}
+		{{ comment }}
+		{{ comment.comment_by }}
+	{% endfor %}
 	{% endblock %}
 </div>

@@ -9,20 +9,29 @@
 <div class = "container">
     {% for post , validations in post_validations.items %}
     <div class = "m-5">
-        <div class="border border-white p-5">
-            <div class = "post_title h3">
-                {{ post.title }} 
-            </div>
-            <div class = "post_text">
-                    {{ post }}
-            </div>
-            <div class = "post_autho">
-                Author : {{ post.User }}
-            </div>
-        <button id = 'validate' post_id = "{{ post.id }}" class = "btn" ></button>
+            <div class="border border-white p-5">
+                <div class = "post_title h3">
+                    {{ post.title }} 
+                </div>
+                <div class = "post_text">
+                        {{ post }}
+                </div>
+                <div class = "post_autho">
+                    Author : {{ post.User }}
+                </div>
+            <button id = 'v_col{{ post.id }}' post_id = "{{ post.id }}" class = "btn" 
+                {{ post.is_liked }}
+                {% if validations.is_liked %}
+                    style="background-color: #989898 ;"   ;
+                {% else %}
+                    style="background-color: #6600cc ;"   ;
+                {% endif %}
+            >
+            </button>
             <div id = 'validate_counter' post_id = "{{ post.id }}">
                  number of validations :
-                 <div id = "v_count{{ post.id }}" > {{ validations.total_no }} </div>
+                 <div class="validate" id = "v_count{{ post.id }}" > {{ validations.total_no }} </div>
+                 <a href="{% url 'home:commentview' post.id %}" class="critic-link">critics</a>
             </div>
         </div>
     </div>
@@ -31,7 +40,6 @@
     {% if page_no != 0 %}
         <a href="{% url 'home:feed' page_no '<-' %}"><-</a>
     {% endif %}
-
     {% if is_end %}
         <a href="{% url 'home:feed' page_no '->' %}">-></a>
     {% endif %}
@@ -42,26 +50,35 @@
 {% block javascript %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    $("button[id='validate']").click(function(){
-      $.ajax({
-               type: "POST",
-               url: "{% url 'home:updatevalidate' %}",
-               data : {'post_id' : $(this).attr('post_id') ,  } ,
-               dataType: "json",
-               success: function(response) {
-                    //probably not the best way of doing this
-                    let selector = "#v_count" +  response.post_id ;
-                    let current = Number($(selector).html()) ;
-                    if(response.liked)
-                        current ++ ;
-                    else 
-                        current -- ;
-                    $(selector).html(current) ;
-                },
-                error: function(rs, e) {
-                    console.log(rs ,e) ;
-                }
-          }); 
-    })
+    $(".btn").click(function(){
+    {% if is_anon %}
+          location.replace("{% url 'user:login' %}") ;
+    {% else %}
+    $.ajax({
+        type: "POST",
+        url: "{% url 'home:updatevalidate' %}",
+        data : {'post_id' : $(this).attr('post_id') ,  } ,
+        dataType: "json",
+            success: function(response) {
+            //probably not the best way of doing this
+            let selector = "#v_count" +  response.post_id ;
+            let col_selector = "#v_col" + response.post_id ; 
+            let current = Number($(selector).html()) ;
+            if(response.liked){
+                current ++ ;
+                $(col_selector).css("background-color" , "#989898") ; 
+            }
+            else {
+                current -- ;
+                $(col_selector).css("background-color" , "#6600cc") ; 
+            }
+            $(selector).html(current) ;
+        },
+        error: function(rs, e) {
+            console.log(rs ,e) ;
+        }
+    {% endif %}
+    }); 
+});
 </script>
 {% endblock %}

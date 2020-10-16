@@ -1,7 +1,6 @@
-.btn {
+.btn{
   height: 25px;
   width: 25px;
-  background-color: #6600cc;
   border-radius: 50%;
   display: inline-block;
 }
@@ -13,4 +12,11 @@
 .posts{
 	margin: 100px ;
 	padding: 10px : ;
+}
+.critic-link{
+	color: grey  ;
+
+}
+.critic-link:hover {
+  color: purple;
 }

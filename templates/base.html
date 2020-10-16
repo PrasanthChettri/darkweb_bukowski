@@ -10,23 +10,22 @@
     {% endblock %}
 </head>
 <body>
-	<header>
+	<header class = "text-center">
         <div id = "title">
-            <h1>DaRk_weB Bukowski</h1>
+            <h1 >DaRk_weB Bukowski</h1>
         </div>
         <div class = "float-right">
             <a href = "{% url 'user:account' %}">
                 <img src = "{% static 'img/user.png' %}" >
             </a>
         </div>
-       <h2 class="mt-5">WEBSITE FOR YOUR CREATIVE VOMIT</h2>
        <div class = "menu">
             <a href = "{% url 'home:feed' %}"> Feed</a> |
             <a href = "{% url 'home:get_new' %}"> New </a>
         </div>
+    </header>
         {% block content %}
         {% endblock %}
-    </header>
 </body>
 <!-- javascript : only the js that is most needed infile to render with jinja and js imports  -->
 {% block javascript %}

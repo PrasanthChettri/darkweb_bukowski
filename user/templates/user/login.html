@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 
 {% block imports %}
@@ -13,18 +14,19 @@
 
 <div class = "container">
     <form action = "{% url 'user:login' %}" method = "POST">
-    	<div class="form">
             {% csrf_token %}
-            {{ form.as_p }}
-        </div>
+            {{ form|crispy }}
         <input type="submit" value="Submit">
-        {{ error }}
+        {% for error in errors %}
+            {{ error }}
+        {% endfor %}
+        <p class="pt-2">
+            <a href = "{% url 'user:signin' %}">Signin</a>
+        </p>
     </form>
-    <div class = "signin_prompt">
-		<a href = "{% url 'user:signin' %}"> Sign Up</a>
-	</div>
 </div>
+{% endblock %}
 
-
-
+{% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}

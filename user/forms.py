@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth import logout, login, authenticate
 from index.models import PostModel
@@ -12,12 +13,17 @@ class UserForm(UserCreationForm):
             self.fields[fieldname].help_text = None
 
 class UserLoginForm(forms.Form):
-	user = forms.CharField()
+	username = forms.CharField()
 	password = forms.CharField(widget = forms.PasswordInput)
-	def is_valid(self , to_validate):
-		username = to_validate.get('username')
-		password = to_validate.get('password')
-		return super().is_valid() and authenticate(username= username , password = password)
+	def is_valid(self , request):
+		username = request.POST.get('username')
+		password = request.POST.get('password')
+		#Not a good way of doing auth, but default auth is not working for some reason
+		user =  User.objects.filter(username = username , password = password)
+		if user.exists() and super().is_valid(): 
+			return user[0]
+		return False 
+
 
 class PostCreationForm(forms.Form):
 	class Meta():

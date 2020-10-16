@@ -31,15 +31,13 @@ def login(request):
 	error = '' 
 	if request.method =='POST':
 		form = UserLoginForm(request.POST)
-		if (user := form.is_valid(request.POST)):
+		if (user := form.is_valid(request)):
 				authlogin(request ,user)
-				HttpResponseRedirect(reverse('home:'))
-		else :
-			error = 'incorrect password or username'
-
-	return render( request , 'user/login.html' , 
-				{'form' : UserLoginForm() ,
-				 'error' : error })
+				return HttpResponseRedirect(reverse('home:feed'))
+		else : 
+			error = "incorrect password or username "
+	return render(request , 'user/login.html' , 
+				{'form' : UserLoginForm() , 'error' : error})
 
 def logoutview(request):
 	logout(request)
@@ -60,6 +58,8 @@ def account(request):
         return HttpResponseRedirect(reverse('user:signin'))
 
 def NewPostView(request):
+	if request.user.is_anonymous : 
+		return HttpResponseRedirect(reverse('user:signin'))
 	if request.method == 'POST':
 		post = PostModel()
 		post.title = request.POST.get('post_title')
