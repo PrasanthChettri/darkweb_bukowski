@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block imports %}
+<link rel="stylesheet" type="text/css" href="{% static 'index/css/comments.css' %}">
+{% endblock %}
 <div class = "container">
 	{% block content %}
-	{% for comment in comments %}
-		{{ comment }}
-		{{ comment.comment_by }}
-	{% endfor %}
+	<div class="my-5">
+		{% for comment in comments %}
+			<div class="comment_text my-3 mx-5">
+				{{ comment }}
+			</div>
+			<div class = "comment_title mt-1 mb-5 mx-5">
+				{{ comment.comment_by }}
+			</div>
+			<hr class="mx-5">
+		{% endfor %}
+	</div>
+	<div class = "m-5">
+		<form  method = "POST" action = "{% url 'home:commentview' post_id %}">
+			 <div class="form-group purple-border">
+				  <textarea class="form-control" id="comment_text" name = "comment_text"  rows="3"></textarea>
+			</div>
+			<input type="submit" value = "Submit" class="btn btn-outline-light">
+			{{ error }}
+		</form>
+	</div>
 	{% endblock %}
 </div>

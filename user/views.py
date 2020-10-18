@@ -7,8 +7,9 @@ from django.contrib import messages
 from django.contrib.auth import logout, login as authlogin, authenticate
 from .forms import UserLoginForm 
 from django.contrib.auth.models import User
-from index.models import PostModel
+from index.models import PostModel , validations
 import datetime
+import pytz
 
 # Create your views here.
 def signin(request):
@@ -46,26 +47,35 @@ def logoutview(request):
 def profile(request):
 	user_profile = request.user.profile
 	posts  = PostModel.objects.filter(User = request.user)
+	post_validations = {}
+	for post in posts:
+		valid_no = len(validations.objects.filter(submission = post))
+		post_validations[post] = valid_no
 	if request.method == 'POST':
 		user_profile.bio = request.POST.get('new_bio')
 		user_profile.save()
-	return render(request , 'user/profile.html' , {'profile' : user_profile , 'posts' : posts})
+	return render(request , 'user/profile.html' , {'profile' : user_profile , 'post_validations' : post_validations})
 
 def account(request):
     if request.user.is_authenticated :
         return HttpResponseRedirect(reverse('user:profile'))
-    else:
-        return HttpResponseRedirect(reverse('user:signin'))
+    return HttpResponseRedirect(reverse('user:signin'))
 
 def NewPostView(request):
 	if request.user.is_anonymous : 
 		return HttpResponseRedirect(reverse('user:signin'))
+	error = ''
 	if request.method == 'POST':
 		post = PostModel()
 		post.title = request.POST.get('post_title')
+		if post.title == '' : 
+			return render(request , 'user/new_post.html' , context = {'error' : 'Title not added'})
 		post.writeup = request.POST.get('post_content')
+		if post.writeup == '' :
+			return render(request , 'user/new_post.html' , context = {'error' : 'Empty Submission'})
 		post.date_c = datetime.datetime.now()
 		post.User = request.user
 		post.save()
-		return HttpResponseRedirect(reverse('user:profile'))
-	return render(request , 'user/new_post.html')
+		if error == '': 
+			return HttpResponseRedirect(reverse('user:profile'))
+	return render(request , 'user/new_post.html') 

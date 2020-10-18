@@ -3,29 +3,51 @@
 
 {% block imports %}
 <link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'user/css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <div class = "container">
-	<div class = "profile_name">
-	{{ profile.username }}
-	</div>
-
+	<h1 class = "profile_name">
+		{{ profile.username }}
+	</h1>
+</div>
+<div class="container mx-5 my-2">
 	<div id = "bio">
 		{{ profile.bio }}
-		<button class="btn btn-outline-light" onclick="update()">Update</button>
 	</div>
-	<div class = "posts">
-		<a class="btn btn-outline-light" href ="{% url 'user:new_post' %}">Add new work</a>
-		{% for post in posts %}
-			{{ post.writeup }}
+</div>
+<div class="container">
+	<button class="btn btn-outline-light" style="display: block;" onclick="update()">Update</button>
+</div>
+<div class="container">
+	<div class = "posts m-5">
+		<a class="btn btn-outline-light mb-5" href ="{% url 'user:new_post' %}">Add new work</a>
+	    {% for post , validations in post_validations.items %}
+		    <div class="mb-5">
+	            <div class="border border-white p-5">
+	                <div class = "post_title h3">
+	                    {{ post.title }} 
+	                </div>
+	                <div class = "post_text">
+	                        {{ post }}
+	                </div>
+	                <div class = "post_autho">
+	                    Author : {{ post.User }}
+	                </div>
+	            <div id = 'validate_counter' post_id = "{{ post.id }}">
+	                 number of validations :
+	                 <div class="validate" id = "v_count{{ post.id }}" > {{ validations }} </div>
+	                 <a href="{% url 'home:commentview' post.id %}" class="critic-link">critics</a>
+	            </div>
+	        </div>
+	    </div>
 		{% endfor %}
 	</div>
 </div>
-<a href="{%url 'user:logout' %}"> logout </a>
+<a class = "fixed-bottom m-3" href="{%url 'user:logout' %}"> logout </a>
 {% endblock %}
-
 {% block javascript %}
 <script>
 function update(){

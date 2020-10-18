@@ -20,3 +20,11 @@ header {
 .menu{
     align-content: center ;
 }
+a{
+    color: grey ;
+    text-decoration: none ;
+}
+a:hover{
+    color: grey ;
+    text-decoration: underline;
+}

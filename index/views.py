@@ -19,30 +19,46 @@ def frontpage(request , page = 0, direction = "-" ):
 	post_validations = defaultdict(lambda : {'objects' : None, 'total_no' : 0 , 'is_liked'  : False})
 	for post in posts:
 		all_valid = validations.objects.filter(submission = post)
-		if nrt is_anon and validations.objects.filter(submission = post , user = request.user).exists(): 
+		if not is_anon and validations.objects.filter(submission = post , user = request.user).exists(): 
 			post_validations[post]['is_liked'] = True 
 		post_validations[post]['objects'] = all_valid
 		post_validations[post]['total_no'] = len(all_valid) 
 		context = {
-				'post_validations' : dict(post_validations) ,
-				'page_no' : page , 
-				'is_end' : len(posts) == post_count ,
-				'is_anon' : is_anon
+					'post_validations' : dict(post_validations) ,
+					'page_no' : page , 
+					'is_end' : len(posts) == post_count ,
+					'is_anon' : is_anon
 				}
 	return render(request , "index/home.html" , context = context) 
 
 #TODO :  make this 
+#Probably have to change the model
 def TopLiteratureView(request):
 	annotated = validations.objects.annotate(Count('submission'))
 	return render(request , "index/home.html" , context = {'posts' : PostModel.objects.all().order_by('-date_c')})
 
+@csrf_exempt
 def commentview(request  , post_id):
+	error = ''
 	if request.method == "POST":
 		if request.user.is_anonymous : 
 			return HttpResponseRedirect(reverse("user:login"))
-	post = PostModel(pk= post_id)
+		post = PostModel(pk = post_id)
+		comment = request.POST.get('comment_text')
+		if comment != '':
+			new_comment =  CommentModel(comment_to = post ,
+								 comment_by = request.user ,
+								 comment_dat = comment 
+								 )
+			new_comment.save()
+		else : 
+			error = "Empty Field"
+
+	else : 
+		post = PostModel(pk = post_id)
 	comments = CommentModel.objects.filter(comment_to = post)
-	return render(request , "index/comment.html" , context = {'comments' : comments})
+	context = {'comments' : comments , 'post_id' : post_id , 'error' : error}
+	return render(request , "index/comment.html" , context = context)
 
 @csrf_exempt
 def updatevalidate(request):
@@ -64,7 +80,8 @@ def getnew(request):
 	return HttpResponseRedirect(reverse("user:new_post"))
 
 '''
-IF THIS TAKES OFF : get_starred = get_favourate literature
-						most_validations = literature hall of fame
-						strongly linked models =  Can see who commented and their profiles and everything
+Stuff to implement if I have time : 
+		get_starred = get_favourate literature
+		most_validations = literature hall of fame
+		strongly linked models =  Can see who commented and their profiles and everything
 '''
