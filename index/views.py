@@ -23,12 +23,12 @@ def frontpage(request , page = 0, direction = "-" ):
 			post_validations[post]['is_liked'] = True 
 		post_validations[post]['objects'] = all_valid
 		post_validations[post]['total_no'] = len(all_valid) 
-		context = {
-					'post_validations' : dict(post_validations) ,
-					'page_no' : page , 
-					'is_end' : len(posts) == post_count ,
-					'is_anon' : is_anon
-				}
+	context = {
+		'post_validations' : dict(post_validations) ,
+		'page_no' : page , 
+		'is_end' : len(posts) == post_count ,
+		'is_anon' : is_anon
+		}
 	return render(request , "index/home.html" , context = context) 
 
 #TODO :  make this 

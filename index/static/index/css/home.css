@@ -13,10 +13,17 @@
 	margin: 100px ;
 	padding: 10px : ;
 }
+pre{
+	color : grey ;
+}
 .critic-link{
+	display: block;
 	color: grey  ;
 
 }
 .critic-link:hover {
   color: purple;
+}
+.validate{
+	display: inline;
 }

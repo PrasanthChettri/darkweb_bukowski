@@ -13,9 +13,7 @@
                 <div class = "post_title h3">
                     {{ post.title }} 
                 </div>
-                <div class = "post_text">
-                        {{ post }}
-                </div>
+                <pre>{{ post }}</pre>
                 <div class = "post_autho">
                     Author : {{ post.User }}
                 </div>
@@ -29,8 +27,7 @@
             >
             </button>
             <div id = 'validate_counter' post_id = "{{ post.id }}">
-                 number of validations :
-                 <div class="validate" id = "v_count{{ post.id }}" > {{ validations.total_no }} </div>
+                 number of validations : <div class="validate" id = "v_count{{ post.id }}" > {{ validations.total_no }} </div>
                  <a href="{% url 'home:commentview' post.id %}" class="critic-link">critics</a>
             </div>
         </div>
