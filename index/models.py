@@ -20,6 +20,7 @@ class CommentModel(models.Model):
 	def __str__(self):
 		return str(self.comment_dat)
 
+
 class validations(models.Model):
 	#user that Validated
 	user = models.ForeignKey(to = User,  on_delete = models.CASCADE , related_name = "User")

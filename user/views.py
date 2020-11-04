@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse as hp , HttpResponseRedirect
+from django.http import HttpResponse as hp , HttpResponseRedirect , HttpResponseBadRequest
 from django.urls import reverse
 from .forms import UserForm
 from .models import ProfileModel
@@ -17,7 +17,7 @@ def signin(request):
 	if request.method == 'POST' :
 		form = UserForm(request.POST)
 		if form.is_valid():
-			username = form.cleaned_data['username']
+			username = form.cleaned_data['username'] 
 			password = form.cleaned_data['password1']
 			user = User(username = username , password = password)
 			user.save()
@@ -41,6 +41,8 @@ def login(request):
 				{'form' : UserLoginForm() , 'error' : error})
 
 def logoutview(request):
+	if request.user.is_anonymous : 
+		return HttpResponseBadRequest("User not logged in")
 	logout(request)
 	return HttpResponseRedirect(reverse('home:feed'))
 
@@ -70,6 +72,7 @@ def NewPostView(request):
 		post.title = request.POST.get('post_title')
 		if post.title == '' : 
 			return render(request , 'user/new_post.html' , context = {'error' : 'Title not added'})
+
 		post.writeup = request.POST.get('post_content')
 		if post.writeup == '' :
 			return render(request , 'user/new_post.html' , context = {'error' : 'Empty Submission'})
