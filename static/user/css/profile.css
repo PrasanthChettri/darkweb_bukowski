@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile_name{
+	margin-bottom: 100px ;
+	display: block;
+}
+.bio{
+	margin-top: 40px ;
+	display: block;
+}
+.critic-link{
+	color: grey  ;
+
+}
+.critic-link:hover {
+  color: purple;
+}

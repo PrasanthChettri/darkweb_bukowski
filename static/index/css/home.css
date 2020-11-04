@@ -1,0 +1,29 @@
+.btn{
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.menu{
+    align-content: center ;
+}
+
+.posts{
+	margin: 100px ;
+	padding: 10px : ;
+}
+pre{
+	color : grey ;
+}
+.critic-link{
+	display: block;
+	color: grey  ;
+
+}
+.critic-link:hover {
+  color: purple;
+}
+.validate{
+	display: inline;
+}
