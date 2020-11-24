@@ -7,6 +7,12 @@
 {% endblock %}
 
 {% block content %}
+{% if error %}
+	<center>
+		<p class="text-danger ">Data Entered is invalid</p>
+	</center>
+{% endif %}
+
 <div class = "container">
     <form action = "{% url 'user:signin' %}" method = "POST">
     	<div class="form"> 

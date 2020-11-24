@@ -12,14 +12,16 @@
             {% csrf_token %}
             {{ form|crispy }}
         <input type="submit" value="Submit">
-        {% for error in errors %}
-            {{ error }}
-        {% endfor %}
         <p class="pt-2">
             <a href = "{% url 'user:signin' %}" class = "text-light">Signin</a>
         </p>
     </form>
+
 </div>
+<center>
+    <p class="text-danger ">{{ error }}</p>
+</center>
+
 {% endblock %}
 
 {% block javascript %}

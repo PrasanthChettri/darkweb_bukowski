@@ -25,7 +25,8 @@ def signin(request):
 			profile.save()
 			authlogin(request , user) 
 			return HttpResponseRedirect(reverse('home:feed'))
-	form = UserForm()
+	else : 
+		form = UserForm()
 	return render(request , 'user/signin.html' , {'form' : form})
 
 def login(request):
