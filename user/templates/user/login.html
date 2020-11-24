@@ -6,12 +6,7 @@
 {% block imports %}
 <link rel="stylesheet" type="text/css" href="{% static 'user/css/style.css' %}">
 {% endblock %}
-
-
 {% block content %}
-
-
-
 <div class = "container">
     <form action = "{% url 'user:login' %}" method = "POST">
             {% csrf_token %}
