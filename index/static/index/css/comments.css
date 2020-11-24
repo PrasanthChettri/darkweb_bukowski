@@ -9,6 +9,9 @@
 hr{
   border-top: 1px dashed white;
 }	
+.container{
+  min-height: 100%;
+}
 .comment_text{
 	font-size: 14px; 
 }
