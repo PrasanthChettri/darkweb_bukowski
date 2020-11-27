@@ -8,11 +8,18 @@ body {
     background-color: rgb(25, 25, 25);
 }
 
-h1{
+.title-text{
     line-height: 100px ;
     color :purple ;
-}
+    margin-left: 35%;
+    margin-bottom: 100px;
+    display: block;
+    border-bottom: 1px solid purple;
+    width: 25%;
+    position: relative;
+    bottom: -6px; /* your padding + border-width */
 
+}
 .menu{
     align-content: center ;
 }
